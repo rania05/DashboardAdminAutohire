@@ -1,6 +1,7 @@
 import React, { Suspense, lazy , useEffect,useState} from 'react';
 import { url } from '../BaseUrl'
 import './Form.css'
+import {  useForm } from "react-hook-form";
 
 import axios from 'axios';
 import { useHistory } from 'react-router';
@@ -24,34 +25,37 @@ function PrivateRoutes(props) {
     const [founded, setFounded] = useState('');
     const [specialities, setSpecialities] = useState('');
     const [size, setSize] = useState('');
+  
+    const {
+      register,
+      handleSubmit,
+      formState: { errors }
+    } = useForm();
+   
 
 
-    const addCmp = (e) => {
-      e.preventDefault();
-      axios.post(`${url}entreprise/newEntreprise`, {
-          nom: nom,
-          industry: industry,
-          about:about,
-          website:website,
-          size:size,
-          type:type,
-          founded:founded,
-          specialities:specialities
+const onSubmit = (data) => {
+  const hamma = {...data,
 
-        })
+    nom: data.title,
+    industry: data.industry,
+    about:data.about,
+    website:data.website,
+    size:data.size,
+    type:data.type,
+    founded:data.founded,
+    specialities:data.specialities,
+
+}
+  axios.post(`${url}entreprise/newEntreprise`, 
+  hamma)
         .then((response) => {
-         setAbout("");
-         setFounded("");
-         setName("");
-         setIndustry("");
-         setWebsite("");
-         setSize("");
-         setType("");
-         setSpecialities("");
+         history.push('/company')
       }, (error) => {
           console.log(error);
-      });
-}
+        });
+};
+
     useEffect(() => {
         axios.get(`${url}entreprise`).then(res => {
           console.log(res.data.nom)
@@ -73,13 +77,24 @@ function PrivateRoutes(props) {
            
           }
         }
-        function updateCmp(id)
+        function updateCmp(id, nom, industry, type, adresse,specialities,website ,size,about,founded)
         {
-          console.log(id)
+          setAbout(about);
+          setFounded(founded);
+          setIndustry(industry);
+          setName(nom);
+          setSize(size);
+          setSpecialities(specialities);
+          setType(type);
+          setWebsite(website);
+       console.log(industry)
           history.push({
             pathname: '/update',
+            search:  'industry'+'='+industry
+            
           });
-       
+
+          
     
           
         }
@@ -94,26 +109,150 @@ function PrivateRoutes(props) {
         <Suspense fallback={<LoadingComponent loading />}>
             <Switch>
                 <Route exact path={SLUGS.dashboard} component={DashboardComponent} />
-                <Route exact path={SLUGS.companyAdd} render={() =>  <div className="divForm" >
-            
-            <form >
-                <input value={nom} onChange={e => setName(e.target.value)} placeholder="Name" type="text"/>
-                <input value={industry} onChange={e => setIndustry(e.target.value)} placeholder="industry" type="text"/>
-                <input value={about} onChange={e => setAbout(e.target.value)} placeholder="about" type="text"/>
-                <input value={website} onChange={e => setWebsite(e.target.value)} placeholder="website" type="text"/>
-                <input value={size} onChange={e => setSize(e.target.value)} placeholder="size" type="text"/>
-                <input value={type} onChange={e => setType(e.target.value)} placeholder="type" type="text"/>
-                <input value={founded} onChange={e => setFounded(e.target.value)} placeholder="founded" type="text"/>
-                <input value={specialities} onChange={e => setSpecialities(e.target.value)} placeholder="specialities" type="text"/>
-                <button type="submit" style={{width:'100%',backgroundColor:'black',color:'white',padding:'14px 20px'
+                <Route exact path={SLUGS.companyAdd} render={() => <div className="form" >
+           <form onSubmit={handleSubmit(onSubmit)}>
+
+
+                <label for="nom" > Name</label>
+                <input  placeholder="Name" type="text" 
+                {...register("nom", {
+                  validate: (value) => 
+                    value.length !==0       
+        })}
+         />
+        {errors.nom && <p className='error'>* Please fill out this field</p>}
+<label for="type">Type</label>
+                <select 
+              
+                    
+                     placeholder="Choose one..." type="text"
+                     {...register("type", {
+                      validate: (value) => value !=="Choose one.."
+                    })} 
+                     >
+                    <option>Choose one..</option>
+                    <option value='Private'>Private </option>
+                    <option value='Public'>Public </option>
+                    <option value='Private  Limited'>Private Limited</option>
+                </select>
+                {errors.type  && (
+        <p className='error'>* Please select an item in the list.</p>
+      )}
+  <label for="indtustry">Industry</label>
+                <select 
+              
+                    
+                     placeholder="Choose one..." type="text"
+                     {...register("industry", {
+                      validate: (value) => value !=="Choose one.."
+                    })} 
+                     >
+                    <option>Choose one..</option>
+                    <option value='IT'>IT</option>
+                    <option value='Education '>Education </option>
+                    <option value='Food '>Food </option>
+                    <option value='Health'>Health</option>
+                    <option value='Aerospace  '>Aerospace  </option>
+                    <option value='Transport '>Transport </option>
+                    <option value='Telecommunication  '>Telecommunication  </option>
+                    <option value='Agriculture '>Agriculture </option>
+                    <option value='Construction  '>Construction  </option>
+                    <option value='Pharmaceutical '>Pharmaceutical </option>
+                    <option value='Entertainment  '>Entertainment  </option>
+                    <option value='Media'>Media</option>
+                    <option value='Energy  '>Energy  </option>
+                    <option value='Manufacturing '>Manufacturing </option>
+                    <option value='Music  '>Music  </option>
+                    <option value='Mining  '>Mining  </option>
+                    <option value='Electronics  '>Electronics  </option>
+
+                </select>
+                {errors.industry  && (
+        <p className='error'>* Please select an item in the list.</p>
+      )}
+
+        <label for="about" >About</label>
+                <input  placeholder="about" type="text" 
+                {...register("about", {
+                  validate: (value) => 
+                    value.length !==0       
+        })}
+         />
+        {errors.about && <p className='error'>* Please fill out this field</p>}
+        <label for="website" >website</label>
+                <input  placeholder="https://" type="text" 
+                {...register("website", {
+                  validate: (value) => 
+                    value.length !==0       
+        })}
+         />
+        {errors.website && <p className='error'> *Please fill out this field</p>}
+
+        <label for="founded" >year of foundation</label>
+                <input  placeholder="2021" type="text" 
+                {...register("founded", {
+                  validate: (value) => 
+                    value.length ===4      
+        })}
+         />
+        {errors.founded && <p className='error'>* must be a year</p>}
+
+
+
+
+
+
+
+               
+
+              
+           <label for="size">Size</label>
+                <select 
+              
+                    
+                     placeholder="Choose one..." type="text"
+                     {...register("size", {
+                      validate: (value) => value !=="Choose one.."
+                    })} 
+                     >
+                    <option>Choose one..</option>
+                    <option value='1- 5 employees'>1- 10 employees</option>
+                    <option value='10-50 employees'>10-50 employees</option>
+                    <option value='50-100 employees'>50-100 employees</option>
+                    <option value='more than 100 employees'>more than 100 employees</option>
+                </select>
+                {errors.size  && (
+        <p className='error'>* Please select an item in the list.</p>
+      )}
+
+
+
+<label for="specialities" >Specialities</label>
+                <input  placeholder="specialities" type="text" 
+                {...register("specialities", {
+                  validate: (value) => 
+                    value.length !==0       
+        })}
+         />
+        {errors.specialities && <p className='error'>* Please fill out this field</p>}
+
+
+
+
+        <button type="submit" style={{width:'100%',backgroundColor:'black',color:'white',padding:'14px 20px'
   ,
   margin: '8px 0',
   border: 'none',
-  cursor: 'pointer'}} onClick={addCmp}>Add Company</button>
+  cursor: 'pointer'}} >Add Company</button>
             </form>
+     </div>  
            
-        </div> } />
-                <Route exact path={SLUGS.overviewThree} render={() => <div>overviewThree</div>} />
+       } />
+                <Route exact path={SLUGS.overviewThree} render={() =><div>
+<p>
+{nom} {about} {industry} {website} {type}{founded} {specialities} {size}
+</p>
+                </div>} />
                 <Route exact path={SLUGS.company} render={() => <div> 
                     <table>
   <tr>
@@ -127,7 +266,7 @@ function PrivateRoutes(props) {
   <th></th>
   </tr> 
                     {posts.map(
-                    ({id, nom, industry, type, adresse,specialities,website }) => {
+                    ({id, nom, industry, type, adresse,specialities,website ,size,about,founded}) => {
                       return (
 
                         <tr>
@@ -138,7 +277,8 @@ function PrivateRoutes(props) {
                         <td>{specialities}</td>
                         <td><a style={{ color : 'blue' , fontSize:'13px' }} href={`${website}`}>{website}</a></td>
                        <td><button class="btn" onClick={()=>deleteCmp({id})}><FaTrash/></button></td> 
-                       <td><button class="btn"   onClick={()=>updateCmp({id})}><FaEdit/></button></td> 
+                       <td><button class="btn"   onClick={()=>updateCmp({id},{nom},{industry},{type},{specialities},
+                        {website},{size},{about},{founded})}><FaEdit/></button></td> 
                         </tr>
  
                         
