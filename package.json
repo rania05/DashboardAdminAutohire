@@ -12,6 +12,7 @@
         "react-dom": "^16.8.6",
         "react-hook-form": "^7.3.6",
         "react-icons": "^4.2.0",
+        "react-images-upload": "^1.2.8",
         "react-jss": "^10.4.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
