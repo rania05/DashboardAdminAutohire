@@ -103,47 +103,10 @@ function TodayTrendsComponent() {
     }
 
     return (
-        <Row
-            flexGrow={1}
-            className={classes.container}
-            horizontal='center'
-            breakpoints={{ 1024: 'column' }}
-        >
-            <Column
-                wrap
-                flexGrow={7}
-                flexBasis='735px'
-                className={classes.graphSection}
-                breakpoints={{ 1024: { width: 'calc(100% - 48px)', flexBasis: 'auto' } }}
-            >
-                <Row wrap horizontal='space-between'>
-                    <Column>
-                        <span className={classes.graphTitle}>Today’s trends</span>
-                        <span className={classes.graphSubtitle}>as of 25 May 2019, 09:41 PM</span>
-                    </Column>
-                    {renderLegend(theme.color.lightBlue, 'Today')}
-                </Row>
-                <div className={classes.graphContainer}>
-                    <LineChart
-                        data={data}
-                        viewBoxWidth={500}
-                        pointsStrokeColor={theme.color.lightBlue}
-                        areaColor={theme.color.lightBlue}
-                        areaVisible={true}
-                    />
-                </div>
-            </Column>
-            <Column className={classes.separator} breakpoints={{ 1024: { display: 'none' } }}>
-                <div />
-            </Column>
-            <Column flexGrow={3} flexBasis='342px' breakpoints={{ 1024: classes.stats }}>
-                {renderStat('Resolved', '449')}
-                {renderStat('Received', '426')}
-                {renderStat('Average first response time', '33m')}
-                {renderStat('Average response time', '3h 8m')}
-                {renderStat('Resolution within SLA', '94%')}
-            </Column>
-        </Row>
+       <div>
+           <center>
+           <iframe width="860" height="615" src="https://www.youtube.com/embed/Kj2-4fVd9Y0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+       </div>
     );
 }
 

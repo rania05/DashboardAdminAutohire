@@ -3,8 +3,6 @@ import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import MiniCardComponent from 'components/cards/MiniCardComponent';
 import TodayTrendsComponent from './TodayTrendsComponent';
-import UnresolvedTicketsComponent from './UnresolvedTicketsComponent';
-import TasksComponent from './TasksComponent';
 
 const useStyles = createUseStyles({
     cardsContainer: {
@@ -49,50 +47,7 @@ function DashboardComponent() {
     const classes = useStyles();
     return (
         <Column>
-            <Row
-                className={classes.cardsContainer}
-                wrap
-                flexGrow={1}
-                horizontal='space-between'
-                breakpoints={{ 768: 'column' }}
-            >
-                <Row
-                    className={classes.cardRow}
-                    wrap
-                    flexGrow={1}
-                    horizontal='space-between'
-                    breakpoints={{ 384: 'column' }}
-                >
-                    <MiniCardComponent
-                        className={classes.miniCardContainer}
-                        title='Unresolved'
-                        value='60'
-                    />
-                    <MiniCardComponent
-                        className={classes.miniCardContainer}
-                        title='Overdue'
-                        value='16'
-                    />
-                </Row>
-                <Row
-                    className={classes.cardRow}
-                    wrap
-                    flexGrow={1}
-                    horizontal='space-between'
-                    breakpoints={{ 384: 'column' }}
-                >
-                    <MiniCardComponent
-                        className={classes.miniCardContainer}
-                        title='Open'
-                        value='43'
-                    />
-                    <MiniCardComponent
-                        className={classes.miniCardContainer}
-                        title='On hold'
-                        value='64'
-                    />
-                </Row>
-            </Row>
+        
             <div className={classes.todayTrends}>
                 <TodayTrendsComponent />
             </div>
@@ -101,8 +56,6 @@ function DashboardComponent() {
                 className={classes.lastRow}
                 breakpoints={{ 1024: 'column' }}
             >
-                <UnresolvedTicketsComponent containerStyles={classes.unresolvedTickets} />
-                <TasksComponent containerStyles={classes.tasks} />
             </Row>
         </Column>
     );

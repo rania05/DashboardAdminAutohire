@@ -10,7 +10,7 @@ export default {
     ideasThree: '/ideas/three',
     contacts: '/contacts',
  
-    settings: '/settings',
+   
   
     // auth
     login: '/login',
