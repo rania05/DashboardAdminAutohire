@@ -1,60 +1,59 @@
-# react-admin-dashboard v2.0
+# Autohire Dashboard
 
-**Live demo**: [https://llorentegerman.github.io/react-admin-dashboard/](https://llorentegerman.github.io/react-admin-dashboard/)
+Autohire is web application for job seekers to find the suitable jobs and Recruiters to find the best candidates. here is the Admin Dashboard that will allow him to manage the companies and tests.
 
-This UI is based on the following Figma design:
-https://www.figmafreebies.com/download/figma-admin-dashboard-ui-kit/
+## Installation
 
-Although the code has been totally refactored, in order to use of functional components, hooks and integrated 100% with react-router, you can still find the original project post here "Building a UI from scratch, based on a design with ReactJS" [here](POST.md) or [here](https://dev.to/llorentegerman/building-a-ui-from-scratch-based-on-a-design-with-reactjs-3l1e).
+First you need to install the packages
 
-## Folder Structure
+```run the project
+npm install
+```
+then  run the project
 
-### base folder: /src:
+```
+npm start
+```
 
--   **/assets**:
-    /icons: SVGs icons
-    other assets (i.e. images)
+## Docker
 
--   **/components**:
-    generic components, or components that will be used by multiple routes
-    i.e.: form components, tables, cards
+ les commandes principales pour utiliser une stack Docker Compose;
 
--   **/hooks**:
-    every hook should be in this folder, and its name should start with the prefix "use":
-    i.e.: useSidebar, useQuery, etc.
+pour  démarrer l'ensemble des conteneurs en arrière-plan
+```
+docker-compose up -d
+```
 
--   **/resources**:
-    -   slugs.js: a list of the routes that will be used in the app
-    -   theme.js: an object with the theme structure, colors, typographies.
-    -   utilities.js: any utility function, for example "convertSlugToUrl", which is used in conjunction with "history.push" (react router) for redirects and links.
+pour   voir le status de l'ensemble de votre stack
+```
+docker-compose ps 
+```
+pour afficher les logs de votre stack:
+```
+docker-compose logs -f --tail 5 
+```
 
--   **/routes**:
-    We have 2 types of routes, public and private.
-    public: are all those that do not require the user to be logged into the app, such as Login, Signup, etc.
-    private: to access these routes the user must be logged in.
-    Each main section of the application has its own route:
-    -   auth (for login, signup, etc)
-    -   dashboard
-    -   overview
-    -   tickets
-    -   ideas
-    -   contacts
-    -   agents
-    -   articles
-    -   settings
-    -   subscription
+pour arrêter l'ensemble des services d'une stack :
+```
+docker-compose stop
+```
+pour détruire l'ensemble des ressources d'une stack:
+```
+docker-compose down 
+```
 
-## Current dependencies:
+pour valider la syntaxe de votre fichier docker-compose.yml:
 
-[react-hook-form](https://www.npmjs.com/package/react-hook-form): form handling.
+```
+docker-compose config
+```
 
-[react-jss](https://www.npmjs.com/package/react-jss): styles.
 
-[react-router-dom](https://www.npmjs.com/package/react-router-dom): routing.
-
-[simple-flexbox](https://www.npmjs.com/package/simple-flexbox): flexbox utility.
-
-## License
-
-This software is released under the [MIT License](https://github.com/llorentegerman/react-admin-dashboard/blob/master/LICENSE).
-
+## Team 
+```
+Here are the github accounts of the team:
+# Rania Arfaoui  : https://github.com/rania05
+# Zaalouni Mohamed Selim : https://github.com/Zslouma
+# Smati Aymen : https://github.com/aymensp
+# Ben Zahra Ghassen : https://github.com/ghassenbenzahra123
+```
